@@ -1,0 +1,120 @@
+{
+  "skill": "pharos-nft-creator-skill",
+  "version": "2.0.0",
+  "checks": [
+    {
+      "id": "python",
+      "name": "Python 3.10+",
+      "type": "command",
+      "test": "python3 --version || python --version",
+      "expectContains": "3.1",
+      "installHint": "Install Python 3.10+: https://www.python.org/downloads/",
+      "required": true
+    },
+    {
+      "id": "pillow",
+      "name": "Pillow library",
+      "type": "python_package",
+      "test": "python3 -c \"from PIL import Image; print('ok')\" || python -c \"from PIL import Image; print('ok')\"",
+      "expectContains": "ok",
+      "installHint": "Run: pip install Pillow",
+      "required": true
+    },
+    {
+      "id": "forge",
+      "name": "Foundry Forge",
+      "type": "command",
+      "test": "forge --version || $HOME/.foundry/bin/forge --version",
+      "expectContains": "forge",
+      "installHint": "Run: curl -L https://foundry.paradigm.xyz | bash && foundryup",
+      "required": true
+    },
+    {
+      "id": "cast",
+      "name": "Foundry Cast",
+      "type": "command",
+      "test": "cast --version || $HOME/.foundry/bin/cast --version",
+      "expectContains": "cast",
+      "installHint": "Run: curl -L https://foundry.paradigm.xyz | bash && foundryup",
+      "required": true
+    },
+    {
+      "id": "jq",
+      "name": "jq (JSON processor)",
+      "type": "command",
+      "test": "jq --version",
+      "expectContains": "jq",
+      "installHint": "Install jq: https://jqlang.github.io/jq/download/",
+      "required": true
+    },
+    {
+      "id": "node",
+      "name": "Node.js",
+      "type": "command",
+      "test": "node --version",
+      "expectContains": "v",
+      "installHint": "Install Node.js: https://nodejs.org/",
+      "required": true
+    },
+    {
+      "id": "pinata_sdk",
+      "name": "Pinata SDK",
+      "type": "command",
+      "test": "node -e \"require('pinata')\"",
+      "expectEmpty": true,
+      "installHint": "Run: npm install pinata",
+      "required": true
+    },
+    {
+      "id": "private_key",
+      "name": "PRIVATE_KEY env var",
+      "type": "env_var",
+      "test": "echo $PRIVATE_KEY",
+      "expectNotEmpty": true,
+      "installHint": "Set env: export PRIVATE_KEY=your_private_key_here",
+      "required": false,
+      "neededFor": "deployment, minting, contract interaction"
+    },
+    {
+      "id": "pinata_jwt",
+      "name": "PINATA_JWT env var",
+      "type": "env_var",
+      "test": "echo $PINATA_JWT",
+      "expectNotEmpty": true,
+      "installHint": "Get JWT from https://pinata.cloud and set: export PINATA_JWT=your_jwt_here",
+      "required": false,
+      "neededFor": "IPFS upload (trait layers / images)"
+    },
+    {
+      "id": "git",
+      "name": "Git",
+      "type": "command",
+      "test": "git --version",
+      "expectContains": "git",
+      "installHint": "Install Git: https://git-scm.com/downloads",
+      "required": false,
+      "neededFor": "Foundry dependency management (forge install)"
+    }
+  ],
+  "foundry_libs": [
+    {
+      "name": "openzeppelin-contracts",
+      "repo": "https://github.com/OpenZeppelin/openzeppelin-contracts",
+      "version": "v5.0.2",
+      "path": "lib/openzeppelin-contracts"
+    }
+  ],
+  "python_packages": [
+    {
+      "name": "Pillow",
+      "version": ">=9.0.0",
+      "purpose": "Image validation"
+    }
+  ],
+  "npm_packages": [
+    {
+      "name": "pinata",
+      "purpose": "Public IPFS file uploads via Pinata"
+    }
+  ]
+}
